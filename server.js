@@ -1,12 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
+const ping = require("ping");
 
 const app = express();
 
 var corsOptions = {
   origin: "*"
 };
+
 
 app.use(cors(corsOptions));
 
@@ -38,6 +40,8 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Limgo application." });
 });
 
+
+
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
@@ -46,6 +50,14 @@ require("./app/routes/user.routes")(app);
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
+  (async function () {
+    const result = await ping.promise.probe('limgo-server.herokuapp.com', {
+      timeout: 10,
+      extra: ["-i", "2"],
+    });
+
+    console.log(result);
+  })();
 });
 
 function initial() {
@@ -78,7 +90,7 @@ function initial() {
           console.log("error", err);
         }
 
-        console.log("added 'admin' to roles collection"); 
+        console.log("added 'admin' to roles collection");
       });
     }
   });
