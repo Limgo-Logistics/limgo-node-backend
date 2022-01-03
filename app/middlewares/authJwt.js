@@ -16,6 +16,7 @@ verifyToken = (req, res, next) => {
       return res.status(401).send({ message: "Unauthorized!" });
     }
     req.userId = decoded.id;
+    console.log(req.userId);
     next();
   });
 };
@@ -57,7 +58,7 @@ isModerator = (req, res, next) => {
       res.status(500).send({ message: err });
       return;
     }
-
+console.log(req);
     Role.find(
       {
         _id: { $in: user.roles }

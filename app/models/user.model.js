@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const User = mongoose.model(
   "User",
   new mongoose.Schema({
-    // username: String,
+    firstName: String,
+    lastName: String,
     email: { type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true },
     password: String,
     smsmobile: {

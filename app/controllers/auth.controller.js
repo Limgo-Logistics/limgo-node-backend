@@ -159,7 +159,6 @@ exports.forgotPasswordRequest = async (req, res) => {
   res.send({ "message": "verification Code Sent" })
 };
 
-
 exports.forgotpassword = async (req, res) => {
   const email = req.body.email;
   const code = generateCode();

@@ -14,6 +14,9 @@ module.exports = function(app) {
 
   app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
+  app.get("/api/user/profile", [authJwt.verifyToken], controller.viewProfile);
+  app.patch("/api/user/editProfile", [authJwt.verifyToken], controller.editProfile);
+
   app.get(
     "/api/test/mod",
     [authJwt.verifyToken, authJwt.isModerator],
