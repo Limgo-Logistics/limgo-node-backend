@@ -113,9 +113,11 @@ exports.signin = (req, res) => {
       }
       res.status(200).send({
         id: user._id,
-        // username: user.username,
         email: user.email,
+        phoneNumber: user.smsmobile,
         roles: authorities,
+        firstName: user.firstName,
+        lastName: user.lastName,
         accessToken: token
       });
     });
