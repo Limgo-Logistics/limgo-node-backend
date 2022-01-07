@@ -62,13 +62,25 @@ exports.signup = (req, res) => {
         }
 
         user.roles = [role._id];
+        var token = jwt.sign({ id: user.id }, config.secret, {
+          expiresIn: 86400 // 24 hours
+        });
+
         user.save(err => {
           if (err) {
             res.status(500).send({ message: err });
             return;
           }
 
-          res.send({ message: "User was registered successfully!" });
+          res.status(200).send({
+            id: user._id,
+            email: user.email,
+            phoneNumber: user.smsmobile,
+            roles: authorities,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            accessToken: token
+          });
         });
       });
     }
